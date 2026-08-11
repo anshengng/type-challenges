@@ -9,3 +9,8 @@ type cases = [
   Expect<Equal<IndexOf<[string, 'a'], 'a'>, 1>>,
   Expect<Equal<IndexOf<[any, 1], 1>, 1>>,
 ]
+type Equal2<X, Y> = (<T>() => T extends X ? 1 : 2) extends (<T>() => T extends Y ? 1 : 2) ? true : false
+
+type IndexOf<T, K, U extends any[] = []> = T extends [infer L, ...infer R] ?
+  Equal2<L, K> extends true ?  U["length"] : IndexOf<R, K, [...U, 1]> :
+  -1

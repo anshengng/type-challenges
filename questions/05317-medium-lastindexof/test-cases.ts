@@ -7,3 +7,7 @@ type cases = [
   Expect<Equal<LastIndexOf<[string, 2, number, 'a', number, 1], number>, 4>>,
   Expect<Equal<LastIndexOf<[string, any, 1, number, 'a', any, 1], any>, 5>>,
 ]
+
+type LastIndexOf<T, K, U extends any[]=[], P=-1> = T extends [infer L,...infer R]
+  ? Equal<L, K> extends true ? LastIndexOf<R, K, [...U, 1], U["length"]> : LastIndexOf<R, K, [...U, 1], P>
+  : P

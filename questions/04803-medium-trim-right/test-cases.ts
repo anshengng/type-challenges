@@ -9,3 +9,6 @@ type cases = [
   Expect<Equal<TrimRight<''>, ''>>,
   Expect<Equal<TrimRight<'\n\t '>, ''>>,
 ]
+
+
+type TrimRight<T> = T extends `${infer A}${' '|'\t'|'\n'}` ? TrimRight<A> : T

@@ -8,3 +8,9 @@ type cases = [
   Expect<Equal<Join<[], 'u'>, ''>>,
   Expect<Equal<Join<['1', '1', '1']>, '1,1,1'>>,
 ]
+
+type Join<T extends any[], K extends string | number = ','> = T extends [infer L extends string, ...infer R]
+  ? R extends []
+    ? `${L}`
+    : `${L}${K}${Join<R, K>}`
+  : ''

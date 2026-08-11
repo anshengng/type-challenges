@@ -12,3 +12,7 @@ type cases = [
   Expect<Equal<Trunc<'-10.234'>, '-10'>>,
   Expect<Equal<Trunc<10>, '10'>>,
 ]
+
+type Trunc<T extends string | number> = `${T}` extends `${infer F}.${infer _}` ?
+  F extends ('-'|'') ? `${F}0` : F :
+  `${T}`
