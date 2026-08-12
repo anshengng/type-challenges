@@ -1,4 +1,5 @@
 import type { Equal, Expect } from '@type-challenges/utils'
+import { Falsey } from 'utility-types'
 
 type Result1 = | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 type Result2 = | 0 | 1 | 2
@@ -22,3 +23,10 @@ type cases = [
   Expect<Equal<NumberRange<0, 2>, Result2>>,
   Expect<Equal<NumberRange<0, 140>, Result3>>,
 ]
+type a = NumberRange<2, 9>
+type NumberRange<S extends number, E extends number, U extends any[] = [], F extends boolean = false> =
+U['length'] extends E ? [...U, U['length']][number] : 
+  F extends true ? NumberRange<S, E, [...U, U['length']], F> :  
+   U['length'] extends S ? NumberRange<S, E, [...U, U['length']], true> : NumberRange<S, E, [...U, never]>
+    
+    
