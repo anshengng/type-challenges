@@ -7,3 +7,5 @@ type cases = [
   // @ts-expect-error
   Expect<Equal<ConstructTuple<1000>['length'], 1000>>,
 ]
+
+type ConstructTuple<T, U extends any[] = []> = T extends U['length'] ? U : ConstructTuple<T, [...U, unknown]>
