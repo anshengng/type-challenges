@@ -11,5 +11,5 @@ type cases = [
   Expect<Equal<MapTypes<{ name: string, date: Date }, { mapFrom: string, mapTo: boolean } | { mapFrom: Date, mapTo: string }>, { name: boolean, date: string }>>,
 ]
 type MapTypes<T, U extends { mapFrom: any, mapTo: any }> = {
-  [K in keyof T]: T[K] extends U['mapFrom'] ? U extends { mapFrom: T[K], mapTo: infer T } ? T : never : T[K] 
+  [K in keyof T]: T[K] extends U['mapFrom'] ? U extends { mapFrom: T[K], mapTo: infer T } ? T : never : T[K]
 }
