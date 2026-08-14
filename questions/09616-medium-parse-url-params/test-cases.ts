@@ -8,3 +8,8 @@ type cases = [
   Expect<Equal<ParseUrlParams<'posts/:id/:user'>, 'id' | 'user'>>,
   Expect<Equal<ParseUrlParams<'posts/:id/:user/like'>, 'id' | 'user'>>,
 ]
+type ParseUrlParams<T> = T extends `${string}:${infer R}`
+  ? R extends `${infer P}/${infer L}`
+    ? P | ParseUrlParams<L>
+    : R
+  : never

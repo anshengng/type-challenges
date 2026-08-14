@@ -19,3 +19,8 @@ type cases = [
   Expect<Equal<Combination<['one', 'two']>, 'one' | 'two' |
   'one two' | 'two one'>>,
 ]
+//['foo', 'bar', 'baz'] foo | bar | baz
+//[] foo | foo #{}   // bar | 'bar baz' or baz | 'baz bar'
+type Combination<T extends string[], U = T[number], K = U> = K extends string ?
+  K  | `${K } ${Combination<[], Exclude<U, K>>}` :
+  never

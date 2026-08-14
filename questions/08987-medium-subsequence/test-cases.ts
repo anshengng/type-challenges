@@ -17,3 +17,6 @@ type cases = [
   ['x'] | ['y'] |
   ['x', 'y'] >>,
 ]
+type Subsequence<T> = T extends [infer F, ...infer R] ? [F] | Subsequence<R> | [F, ...Subsequence<R>] : []
+
+type a = [1, ...([2] | [3]|[])]
