@@ -11,3 +11,7 @@ type cases = [
 ]
 // @ts-expect-error
 type error = GetMiddleElement<1, 2, 3>
+
+type GetMiddleElement<T> = T extends [any, ...infer Rest, any] ? 
+ Rest extends [] ? T : GetMiddleElement<Rest>
+ : T
