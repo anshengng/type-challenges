@@ -14,3 +14,11 @@ type cases1 = [
   Expect<Equal<Integer<typeof x>, never>>,
   Expect<Equal<Integer<typeof y>, 1>>,
 ]
+type IsZero<T> = T extends `${infer A}${infer R}` ? A extends '0' ? IsZero<R> : false : false
+type Integer<T> = T extends number
+  ? number extends T
+    ? never
+    : `${T}` extends `${infer N}.${infer R}`
+      ? IsZero<R> extends true ? N : never
+      : T
+  : never;

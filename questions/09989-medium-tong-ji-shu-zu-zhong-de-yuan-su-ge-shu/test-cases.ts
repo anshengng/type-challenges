@@ -35,3 +35,10 @@ type cases = [
     'd': 1
   }>>,
 ]
+type flatten<T> = T extends [infer A, ...infer R] ? A extends any[] ? [...flatten<A>, ...flatten<R>] : [A, ...flatten<R>] : []
+type findFieldCount<T, K, U extends any[] = []> = T extends [infer A, ...infer R] ? 
+A extends K ? findFieldCount<R, K, [...U, A]> : findFieldCount<R, K, U> 
+: U["length"]
+type CountElementNumberToObject<T extends any[], U extends any[] = flatten<T>> = {
+  [P in U[number]]: findFieldCount<U, P>
+}
