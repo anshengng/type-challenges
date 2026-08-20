@@ -17,3 +17,5 @@ type cases = [
   Expect<Equal<All<[unknown], any>, false>>,
   Expect<Equal<All<[1, 1, 2], 1 | 2>, false>>,
 ]
+
+type All<T, K> = T extends [infer F, ...infer R] ? (Equal<F,K> extends true ? All<R, K> : false) : true

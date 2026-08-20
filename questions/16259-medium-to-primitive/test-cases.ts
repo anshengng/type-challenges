@@ -29,3 +29,9 @@ type ExpectedResult = {
 type cases = [
   Expect<Equal<ToPrimitive<PersonInfo>, ExpectedResult>>,
 ]
+
+type ToPrimitive<T> = 
+    T extends object ? T extends (...args: any) => any ? Function : { [K in keyof T]: ToPrimitive<T[K]> } :
+    T extends { valueOf: () => infer P } ? P : 
+    T;
+type a = ToPrimitive<PersonInfo>

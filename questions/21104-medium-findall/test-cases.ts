@@ -9,3 +9,15 @@ type cases = [
   Expect<Equal<FindAll<'AAAA', 'A'>, [0, 1, 2, 3]>>,
   Expect<Equal<FindAll<'AAAA', 'AA'>, [0, 1, 2]>>,
 ]
+
+type NormalFindAll<
+  T extends string,
+  S extends string,
+  P extends any[] = [],
+  R extends number[] = [],
+> =
+  T extends `${string}${infer L}` ?
+    T extends `${S}${string}` ? NormalFindAll<L, S, [...P, 0], [...R, P['length']]> : NormalFindAll<L, S, [...P, 0], R>
+  : R
+
+type FindAll<T extends string, P extends string> = P extends '' ? [] : NormalFindAll<T, P>

@@ -8,3 +8,6 @@ type cases = [
   Expect<Equal<IsEqual<any, never>, false>>,
   Expect<Equal<IsEqual<[any], [number]>, false>>,
 ]
+
+type IsEqual<T, K> = (<A>() => A extends T ? 1 : 2) extends 
+(<A>() => A extends K ? 1 : 2) ? true : false
