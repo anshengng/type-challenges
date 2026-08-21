@@ -6,3 +6,4 @@ type CaseTypeOne = 'cmd ctrl' | 'cmd opt' | 'cmd fn' | 'ctrl opt' | 'ctrl fn' | 
 type cases = [
   Expect<Equal<Combs<ModifierKeys>, CaseTypeOne>>,
 ]
+type Combs<T extends any[]> = T extends [infer F, ...infer R extends any[]] ? `${F & string} ${R[number]}` | Combs<R> : never

@@ -8,3 +8,7 @@ type cases = [
   Expect<Equal<ReplaceFirst<[1, 'two', 3], string, 2>, [1, 2, 3]>>,
   Expect<Equal<ReplaceFirst<['six', 'eight', 'ten'], 'eleven', 'twelve'>, ['six', 'eight', 'ten']>>,
 ]
+
+type ReplaceFirst<T, S, K, U extends any[] = []> = T extends [infer F, ...infer R] ?
+  F extends S ? [...U, K, ...R] : ReplaceFirst<R, S, K, [...U, F]>
+: U
